@@ -1,10 +1,10 @@
 use rand::Rng;
 
-fn exponentiate(num: u32, exp: u32, p: u32) -> u32 {
+pub fn exponentiate(num: u32, exp: u32, p: u32) -> u32 {
     num.pow(exp) % p
 }
 
-fn solve(x: u32, k: u32, c: u32, q: u32) -> u32 {
+pub fn solve(x: u32, k: u32, c: u32, q: u32) -> u32 {
     // s = (k - c * x) mod q
     let s = (k as i32 - (c * x) as i32) % q as i32;
     if s >= 0 {
@@ -15,7 +15,7 @@ fn solve(x: u32, k: u32, c: u32, q: u32) -> u32 {
     }
 }
 
-fn verify(g: u32, h: u32, p: u32, y1: u32, y2: u32, r1: u32, r2: u32, c: u32, s: u32) -> bool {
+pub fn verify(g: u32, h: u32, p: u32, y1: u32, y2: u32, r1: u32, r2: u32, c: u32, s: u32) -> bool {
     // r1 = g ^ s * y1 ^ c
     let eq1: bool = r1 == exponentiate(g, s, p) * exponentiate(y1, c, p) % p;
     // r2 = h ^ s * y2 ^ c
@@ -58,7 +58,7 @@ mod tests {
     fn test_verify() {
         let g = 4;
         let h = 9;
-        let q: u32 = 11;
+        let q = 11;
         let p = 23;
         let y1 = 2;
         let y2 = 3;
@@ -66,6 +66,33 @@ mod tests {
         let r2 = 4;
         let c = 4;
         let s = 5;
+        assert!(verify(g, h, p, y1, y2, r1, r2, c, s));
+        assert!(!verify(g, h, p, y1, y2, r1, r2, c, (s + 1) % q));
+    }
+
+    #[test]
+    fn test_toy_example() {
+        let g = 4;
+        let h = 9;
+        let q = 11;
+        let p = 23;
+
+        let x = 6;
+
+        // registration
+        let y1 = exponentiate(g, x, p);
+        let y2 = exponentiate(h, x, p);
+
+        // verification (a)
+        let k = randome_number() % 10; // 0 - 9
+        let r1 = exponentiate(g, k, p);
+        let r2 = exponentiate(h, k, p);
+
+        // verification (b)
+        let c = randome_number() % 10; // 0 - 9
+
+        // verification (c)
+        let s = solve(x, k, c, q);
         assert!(verify(g, h, p, y1, y2, r1, r2, c, s));
         assert!(!verify(g, h, p, y1, y2, r1, r2, c, (s + 1) % q));
     }
