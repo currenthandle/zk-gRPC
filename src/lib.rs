@@ -24,10 +24,18 @@ pub fn verify(g: u32, h: u32, p: u32, y1: u32, y2: u32, r1: u32, r2: u32, c: u32
     eq1 && eq2
 }
 
-pub fn randome_number() -> u32 {
+pub fn random_number() -> u32 {
     let mut rng = rand::thread_rng();
 
     rng.gen()
+}
+
+pub fn random_string(n: usize) -> String {
+    rand::thread_rng()
+        .sample_iter(&rand::distributions::Alphanumeric)
+        .take(n)
+        .map(char::from)
+        .collect()
 }
 
 #[cfg(test)]
@@ -80,12 +88,12 @@ mod tests {
         let y2 = exponentiate(h, x, p);
 
         // verification (a)
-        let k = randome_number() % 10; // 0 - 9
+        let k = random_number() % 10; // 0 - 9
         let r1 = exponentiate(g, k, p);
         let r2 = exponentiate(h, k, p);
 
         // verification (b)
-        let c = randome_number() % 10; // 0 - 9
+        let c = random_number() % 10; // 0 - 9
 
         // verification (c)
         let s = solve(x, k, c, q);
