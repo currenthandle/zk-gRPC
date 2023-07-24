@@ -3,7 +3,7 @@ use rand::Rng;
 pub const G: u32 = 4u32;
 pub const H: u32 = 9u32;
 pub const P: u32 = 23u32;
-pub const Q: u32 = 4u32;
+pub const Q: u32 = 11u32;
 
 pub fn exponentiate(num: u32, exp: u32, p: u32) -> u32 {
     num.pow(exp) % p

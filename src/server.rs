@@ -73,7 +73,7 @@ impl Auth for AuthImpl {
         let user_info_hashmap = &mut self.user_info.lock().unwrap(); //TODO : inprove unwrap
         if let Some(user_info) = user_info_hashmap.get_mut(&user_id) {
             let auth_id = random_string(6);
-            let c = random_number();
+            let c = random_number() % 10;
 
             user_info.r1 = request.r1;
             user_info.r2 = request.r2;
