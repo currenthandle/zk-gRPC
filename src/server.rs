@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+use std::sync::Mutex;
 use tonic::{transport::Server, Request, Response, Status};
 
 pub mod zkp_auth {
@@ -11,7 +13,21 @@ use zkp_auth::{
 };
 
 #[derive(Debug, Default)]
-pub struct AuthImpl {}
+pub struct UserInfo {
+    pub user: String,
+    pub y1: u32,
+    pub y2: u32,
+    pub r1: u32,
+    pub r2: u32,
+    pub c: u32,
+    pub session_id: String,
+}
+
+#[derive(Debug, Default)]
+pub struct AuthImpl {
+    pub user_info: Mutex<HashMap<String, UserInfo>>,
+    pub auth_info: Mutex<HashMap<String, String>>,
+}
 
 #[tonic::async_trait]
 impl Auth for AuthImpl {
