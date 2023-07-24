@@ -26,7 +26,7 @@ message AuthenicationAnswerRequest {
 }
 
 message AuthenicationAnswerResponse {
-    string sesion_id = 1;
+    string session_id = 1;
 }
 
 service Auth {

@@ -41,7 +41,7 @@ pub struct AuthenicationAnswerRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AuthenicationAnswerResponse {
     #[prost(string, tag = "1")]
-    pub sesion_id: ::prost::alloc::string::String,
+    pub session_id: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
 pub mod auth_client {
