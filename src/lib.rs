@@ -24,14 +24,10 @@ pub fn verify(g: u32, h: u32, p: u32, y1: u32, y2: u32, r1: u32, r2: u32, c: u32
     eq1 && eq2
 }
 
-fn randome_number() -> u32 {
+pub fn randome_number() -> u32 {
     let mut rng = rand::thread_rng();
 
     rng.gen()
-}
-
-fn main() {
-    println!("{}", randome_number());
 }
 
 #[cfg(test)]
