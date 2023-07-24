@@ -106,8 +106,8 @@ impl Auth for AuthImpl {
 
         if let Some(user_id) = auth_info_hashmap.get(&auth_id) {
             let user_info_hashmap = &mut self.user_info.lock().unwrap(); //TODO : inprove unwrap
+
             if let Some(user_info) = user_info_hashmap.get_mut(user_id) {
-                let session_id = random_string(6);
                 let s = request.s;
                 let y1 = user_info.y1;
                 let y2 = user_info.y2;
